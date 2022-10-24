@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        //new forge repository
         maven { url "https://maven.minecraftforge.net" }
         maven { url 'https://repo.spongepowered.org/maven'}
     }
@@ -19,17 +18,17 @@ apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: 'org.spongepowered.mixin'
 
 version = "1.0"
-group = "dreamys.studio" //http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "examplemod" //name of the output jar
+group = "com.zeromods"
+archivesBaseName = "DupeControls"
 
-sourceCompatibility = targetCompatibility = 1.8 //using java 8
+sourceCompatibility = targetCompatibility = 1.8
 compileJava.options.encoding = "UTF-8"
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
-    mappings = "stable_22" //mappings for 1.8.9
-    makeObfSourceJar = false //disable creation of sources jar
+    mappings = "stable_22"
+    makeObfSourceJar = false
 }
 
 configurations {
@@ -38,17 +37,10 @@ configurations {
 }
 
 repositories {
-    //repos for libraries (not gradle plugins)
-    //example:
-    //maven { url "https://repo.dreamys.studio/" }
     maven { url 'https://repo.spongepowered.org/maven/' }
 }
 
 dependencies {
-    //shade will bundle your library to the output jar
-    //your libraries will be accessible outside of intellij
-    //example:
-    //shade "studio.dreamys:libSkyblock:1.1.1"
     shade('org.spongepowered:mixin:0.7.10-SNAPSHOT') {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
@@ -56,27 +48,17 @@ dependencies {
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
-
-    //compile will make your library available only in this dev environment
-    //your libraries wont be accessible outside of intellij
-    //example:
-    //compile "studio.dreamys:libSkyblock:1.1.1"
 }
 
 processResources {
-    //this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    //replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
-
-        //replace version and mcversion
         expand "version":project.version, "mcversion":project.minecraft.version
     }
 
-    //copy everything else, that"s not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude "mcmod.info"
     }
@@ -86,33 +68,31 @@ processResources {
 
 shadowJar {
     dependencies {
-        //we remove gson because it belongs to the public api and will break shading
-        //exclude(dependency("com.google.code.gson:gson:2.8.6"))
+
     }
     configurations = [project.configurations.shade]
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE //prevent duplicates
-    classifier "" //prevent creation of unshadowed jar
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    classifier ""
 }
 
 reobf {
-    //reobfuscate the shadowed jar
     shadowJar {}
 }
 
 jar {
     manifest {
-        attributes "FMLCorePlugin": "studio.dreamys.mixin.MixinLoader",
+        attributes "FMLCorePlugin": "com.zeromods.dupecontrols.mixin.MixinLoader",
                 "ForceLoadAsMod": true,
                 "TweakOrder": 0,
                 "ModSide": "CLIENT",
                 'FMLCorePluginContainsFMLMod': true,
                 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-                'MixinConfigs': 'mixins.examplemod.json'
+                'MixinConfigs': 'mixins.dupecontrols.json'
     }
 }
 
 sourceSets {
     main {
-        ext.refMap = "mixins.examplemod.refmap.json"
+        ext.refMap = "mixins.dupecontrols.refmap.json"
     }
 }

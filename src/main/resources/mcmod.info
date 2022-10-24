@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "dupecontrols",
+  "name": "DupeControls",
+  "description": "Allows 2 keys/buttons to be assigned to one control.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude", "dxxxxy"],
-  "credits": "The Forge and FML guys, for making this example. dxxxxy for fixing it.",
+  "authorList": ["Telecode"],
+  "credits": "DxxxxY, FML, Zero Mods",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

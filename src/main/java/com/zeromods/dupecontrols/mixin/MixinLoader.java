@@ -1,4 +1,4 @@
-package studio.dreamys.mixin;
+package com.zeromods.dupecontrols.mixin;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -11,7 +11,7 @@ public class MixinLoader implements IFMLLoadingPlugin {
     public MixinLoader() {
         System.out.println("[ExampleMod] Injecting with IFMLLoadingPlugin.");
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.examplemod.json");
+        Mixins.addConfiguration("mixins.dupecontrols.json");
         MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
     }
 

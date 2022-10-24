@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.zeromods.dupecontrols.mixin",
+  "refmap": "mixins.dupecontrols.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "client.MixinMinecraft",
+    "client.settings.MixinGameSettings",
+    "client.settings.MixinKeyBinding"
+  ]
+}
